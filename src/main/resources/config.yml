@@ -1,0 +1,52 @@
+# RWR-Discord 1.0 configuration.
+# Webhook URLs and Discord settings live only in this add-on's data folder.
+# Secrets are redacted from all log output and are never written to the durable queue file.
+
+config-version: 1
+
+# Locale code. Loads locales/<code>.yml from the data folder, with English fallback.
+locale: en_US
+
+webhook:
+  # Discord incoming webhook URL. Leave empty to disable delivery.
+  # Example: https://discord.com/api/webhooks/1234567890/abcdef...
+  url: ""
+  # Display name shown as the webhook username (optional override).
+  username: "RWR"
+  # Optional avatar URL for the webhook.
+  avatar-url: ""
+  # HTTP connect/read timeout in milliseconds.
+  timeout-ms: 8000
+  # Maximum pending notifications in the durable queue (hard cap 500).
+  queue-capacity: 500
+  # Hours before an undelivered notification expires (hard cap 24).
+  queue-ttl-hours: 24
+  # Total delivery attempts per notification (hard cap 8), including the first try.
+  max-attempts: 8
+  # Minimum seconds between successful HTTP posts (client-side spacing).
+  min-interval-seconds: 1
+
+# Which event categories to post. Intermediate reset phases are never sent.
+events:
+  # ResourceWorldPreResetEvent — imminent reset starting.
+  warnings: true
+  # Terminal COMPLETE.
+  success: true
+  # Terminal FAILED (excluding pure cancellations when split below).
+  failures: true
+  # Terminal FAILED with failure type EVENT_CANCELLED.
+  cancellations: true
+  # Terminal INTERRUPTED.
+  interrupted: true
+
+# Embed appearance (decimal color integers).
+embeds:
+  warning-color: 16776960      # yellow
+  success-color: 5763719       # green
+  failure-color: 15548997      # red
+  cancellation-color: 15105570 # orange
+  interrupted-color: 10181046  # purple
+
+# Discord v1 never enables arbitrary mentions. This flag is reserved for a future
+# opt-in and is forced off in 1.0 regardless of the value written here.
+allow-mentions: false

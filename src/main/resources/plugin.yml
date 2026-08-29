@@ -1,0 +1,22 @@
+name: RWR-Discord
+version: '${project.version}'
+main: com.lozaine.resourceworldresetter.discord.RwrDiscordPlugin
+api-version: '1.21'
+load: POSTWORLD
+authors: [TamaWish, Lozaine]
+description: Discord webhook add-on for ResourceWorldResetter
+website: https://github.com/TamaWish/RWR-Discord
+softdepend:
+  - ResourceWorldResetter
+  - ResourceWorldResetter-Paper-Folia
+
+commands:
+  rwrdiscord:
+    description: RWR-Discord administration commands
+    usage: /rwrdiscord <reload|status>
+    aliases: [rwr-discord, rwrwh]
+
+permissions:
+  rwrdiscord.admin:
+    description: Allows /rwrdiscord reload and status
+    default: op

@@ -1,12 +1,19 @@
-# RWR-Discord English locale (default + fallback).
-# Placeholders use {name} form. Mentions are stripped from outbound webhook text.
+# =============================================================================
+# RWR-Discord Webhook English Locale (Default + Fallback)
+# =============================================================================
+# Runtime placeholders use the {name} form. Keep text inside braces unchanged.
+# Mentions are stripped from outbound webhook text for safety.
+# =============================================================================
 
+# -----------------------------------------------------------------------------
+# Commands and Status
+# -----------------------------------------------------------------------------
 command:
   no-permission: "You do not have permission: {permission}"
-  unknown: "Unknown subcommand. Use /rwrdiscord reload|status."
-  reload-success: "RWR-Discord configuration reloaded."
+  unknown: "Unknown subcommand. Use /rwr discord reload|status."
+  reload-success: "RWR-Discord Webhook configuration reloaded."
   reload-failed: "Reload failed: {reason}"
-  status-header: "RWR-Discord status"
+  status-header: "RWR-Discord Webhook status"
   status-service: "RWR API: {state}"
   status-webhook: "Webhook: {state}"
   status-queue: "Durable queue size: {size}"
@@ -15,9 +22,16 @@ command:
   status-retries: "Retry count (session): {count}"
   status-never: "never"
 
+# -----------------------------------------------------------------------------
+# Discord Embeds
+# -----------------------------------------------------------------------------
 embed:
+  # Titles and descriptions.
+  configuration-title: "RWR-Discord Webhook configured"
+  configuration-description: "Discord webhook delivery is configured and ready for ResourceWorldResetter reset notifications."
+  legal-links: "[Privacy Policy]({privacy_url}) · [Terms of Service]({terms_url})"
   warning-title: "Reset warning"
-  warning-description: "A guarded reset is starting for {world_name}."
+  warning-description: "A reset of {world_name} is scheduled in {remaining}."
   success-title: "Reset complete"
   success-description: "World {world_name} was reset successfully."
   failure-title: "Reset failed"
@@ -27,16 +41,26 @@ embed:
   interrupted-title: "Reset interrupted"
   interrupted-description: "A previous reset of {world_name} was recovered as interrupted."
 
+  # Field labels shown inside embeds.
   field-world-id: "World ID"
   field-world-name: "World name"
   field-operation: "Operation ID"
+  field-remaining: "Remaining"
+  field-scheduled-at: "Scheduled reset"
   field-phase: "Phase"
   field-failure: "Failure"
   field-safety: "Safety"
   field-message: "Detail"
   field-timestamp: "Timestamp"
+  field-api-status: "RWR API"
+  field-addon-version: "Add-on version"
+  field-server: "Server"
+  # General field values.
+  api-available: "Available - reset notifications are active"
+  api-unavailable: "Unavailable - waiting for the RWR runtime"
+  remaining-minutes: "{minutes} minute(s)"
 
-  # Human-readable failure labels (keys match ResetFailureType enum names).
+  # Failure labels. The key suffix matches ResetFailureType and must not change.
   failure-UNKNOWN_WORLD_ID: "Unknown world ID"
   failure-WORLD_NOT_MANAGED: "World not managed"
   failure-WORLD_BUSY: "World busy"
@@ -57,10 +81,12 @@ embed:
   failure-JOURNAL_UNAVAILABLE: "Journal unavailable"
   failure-INTERRUPTED_OPERATION: "Interrupted operation"
 
+  # Retry-safety labels. Key suffixes are internal API values.
   safety-SAFE_TO_RETRY: "Safe to retry"
   safety-AMBIGUOUS_REVIEW_REQUIRED: "Review required"
   safety-NOT_RETRYABLE: "Not retryable"
 
+  # Reset phase labels. Key suffixes are internal API values.
   phase-PRECHECK: "Precheck"
   phase-EVACUATE: "Evacuate"
   phase-REGENERATE: "Regenerate"
@@ -70,9 +96,13 @@ embed:
   phase-INTERRUPTED: "Interrupted"
   phase-IDLE: "Idle"
 
+# -----------------------------------------------------------------------------
+# Console Log Messages
+# -----------------------------------------------------------------------------
 log:
-  enabled: "RWR-Discord enabled. RWR API available; webhook {webhook_state}."
-  disabled-no-api: "RWR API is unavailable. RWR-Discord will stay loaded but inactive until RWR enables."
+  enabled: "RWR-Discord Webhook enabled. RWR API available; webhook {webhook_state}."
+  enabled-degraded: "RWR-Discord Webhook enabled in degraded mode; RWR API unavailable and event delivery disabled. Webhook {webhook_state}."
+  disabled-no-api: "RWR API is unavailable. RWR-Discord Webhook will stay loaded but inactive until RWR enables."
   webhook-missing: "Webhook URL is empty; deliveries are disabled."
   delivery-success: "Webhook delivered for {category} (operation={operation})."
   delivery-failed: "Webhook delivery failed for {category} after retries: {detail}"

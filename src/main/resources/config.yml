@@ -1,45 +1,80 @@
-# RWR-Discord 1.0 configuration.
+# =============================================================================
+# RWR-Discord Webhook v1.0.0
+# Author: Lozaine@TamaWish
+# =============================================================================
 # Webhook URLs and Discord settings live only in this add-on's data folder.
-# Secrets are redacted from all log output and are never written to the durable queue file.
+# Secrets are redacted from log output and are never written to the durable queue.
+# =============================================================================
 
 config-version: 1
 
-# Locale code. Loads locales/<code>.yml from the data folder, with English fallback.
+# -----------------------------------------------------------------------------
+# Locale
+# -----------------------------------------------------------------------------
+# Loads locales/<code>.yml from the data folder. Missing keys use English.
 locale: en_US
 
+# -----------------------------------------------------------------------------
+# Discord Webhook
+# -----------------------------------------------------------------------------
 webhook:
-  # Discord incoming webhook URL. Leave empty to disable delivery.
+  # How to create the webhook:
+  # 1. Open Discord and select your server.
+  # 2. Open Server Settings > Integrations > Webhooks.
+  # 3. Select New Webhook and choose the RWR notification channel.
+  # 4. Select Copy Webhook URL.
+  # 5. Paste the URL between the quotes below, then run /rwr discord reload.
+  #
+  # Leave empty to disable delivery.
   # Example: https://discord.com/api/webhooks/1234567890/abcdef...
   url: ""
-  # Display name shown as the webhook username (optional override).
+
+  # Name and avatar displayed for RWR notifications.
   username: "RWR"
-  # Optional avatar URL for the webhook.
-  avatar-url: ""
-  # HTTP connect/read timeout in milliseconds.
+  avatar_url: "https://files.catbox.moe/6pm9fu.png"
+
+  # HTTP connection and response timeout in milliseconds.
+  # Increase only if a slow network regularly times out.
   timeout-ms: 8000
-  # Maximum pending notifications in the durable queue (hard cap 500).
+
+  # Durable delivery settings. Defaults provide the strongest supported
+  # reliability and are suitable for most servers.
+  # queue-capacity: 1-500 pending notifications.
+  # queue-ttl-hours: 1-24 hours before an undelivered entry expires.
+  # max-attempts: 1-8 total attempts, including the first delivery.
   queue-capacity: 500
-  # Hours before an undelivered notification expires (hard cap 24).
   queue-ttl-hours: 24
-  # Total delivery attempts per notification (hard cap 8), including the first try.
   max-attempts: 8
-  # Minimum seconds between successful HTTP posts (client-side spacing).
+
+  # Minimum spacing between HTTP posts. Keep at least 1 second unless you have
+  # a specific reason to allow faster delivery.
   min-interval-seconds: 1
 
-# Which event categories to post. Intermediate reset phases are never sent.
+# -----------------------------------------------------------------------------
+# Notification Categories
+# -----------------------------------------------------------------------------
+# Toggle categories independently. Intermediate reset phases are never sent.
 events:
-  # ResourceWorldPreResetEvent — imminent reset starting.
+  # One notification for every configured RWR warning threshold.
   warnings: true
-  # Terminal COMPLETE.
+
+  # Terminal COMPLETE resets.
   success: true
-  # Terminal FAILED (excluding pure cancellations when split below).
+
+  # Terminal FAILED resets, excluding cancellations when separated below.
   failures: true
-  # Terminal FAILED with failure type EVENT_CANCELLED.
+
+  # Resets cancelled by ResourceWorldPreResetEvent.
   cancellations: true
-  # Terminal INTERRUPTED.
+
+  # Operations recovered as interrupted after a restart or crash.
   interrupted: true
 
-# Embed appearance (decimal color integers).
+# -----------------------------------------------------------------------------
+# Embed Appearance
+# -----------------------------------------------------------------------------
+# Discord embed colors are decimal RGB integers.
+# Color picker: https://www.spycolor.com/
 embeds:
   warning-color: 16776960      # yellow
   success-color: 5763719       # green
@@ -47,6 +82,24 @@ embeds:
   cancellation-color: 15105570 # orange
   interrupted-color: 10181046  # purple
 
-# Discord v1 never enables arbitrary mentions. This flag is reserved for a future
-# opt-in and is forced off in 1.0 regardless of the value written here.
-allow-mentions: false
+# -----------------------------------------------------------------------------
+# Mentions
+# -----------------------------------------------------------------------------
+# Only IDs listed here can ping Discord users or roles. Locale strings and RWR
+# event messages are always sanitized and cannot trigger mentions.
+mentions:
+  enabled: false
+
+  # Role IDs to mention. Right-click a role in Discord (Developer Mode on) and
+  # choose Copy Role ID. Use mentions.roles.all to ping on every notification.
+  roles:
+    all: ""
+    configuration: ""
+    warnings: ""
+    success: ""
+    failures: ""
+    cancellations: ""
+    interrupted: ""
+
+  # User IDs to mention on every notification when mentions are enabled.
+  users: []

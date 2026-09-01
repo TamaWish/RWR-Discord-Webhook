@@ -5,13 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.github.tamawish</groupId>
-    <artifactId>rwr-discord</artifactId>
+    <artifactId>rwr-discord-webhook</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>RWR-Discord</name>
+    <name>RWR-Discord Webhook</name>
     <description>Discord webhook add-on for ResourceWorldResetter</description>
-    <url>https://github.com/TamaWish/RWR-Discord</url>
+    <url>https://github.com/TamaWish/RWR-Discord-Webhook</url>
     <inceptionYear>2026</inceptionYear>
 
     <licenses>
@@ -30,9 +30,9 @@
     </developers>
 
     <scm>
-        <connection>scm:git:https://github.com/TamaWish/RWR-Discord.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com/TamaWish/RWR-Discord.git</developerConnection>
-        <url>https://github.com/TamaWish/RWR-Discord</url>
+        <connection>scm:git:https://github.com/TamaWish/RWR-Discord-Webhook.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/TamaWish/RWR-Discord-Webhook.git</developerConnection>
+        <url>https://github.com/TamaWish/RWR-Discord-Webhook</url>
     </scm>
 
     <properties>
@@ -41,10 +41,13 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <project.build.outputTimestamp>2026-08-29T00:00:00Z</project.build.outputTimestamp>
         <spigot.version>1.21.4-R0.1-SNAPSHOT</spigot.version>
-        <rwr.api.version>5.1.0</rwr.api.version>
+        <rwr.api.version>5.1.2</rwr.api.version>
         <junit.version>5.12.1</junit.version>
-        <assertj.version>3.27.3</assertj.version>
+        <assertj.version>3.27.7</assertj.version>
+        <mockito.version>5.18.0</mockito.version>
         <gson.version>2.11.0</gson.version>
+        <!-- Required for Surefire's late @{argLine} replacement below. -->
+        <argLine></argLine>
     </properties>
 
     <repositories>
@@ -74,6 +77,12 @@
             <version>${gson.version}</version>
         </dependency>
         <dependency>
+            <groupId>org.bstats</groupId>
+            <artifactId>bstats-bukkit</artifactId>
+            <version>3.2.1</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
             <version>${junit.version}</version>
@@ -85,10 +94,16 @@
             <version>${assertj.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
-        <finalName>RWR-Discord-${project.version}</finalName>
+        <finalName>RWR-Discord-Webhook-${project.version}</finalName>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
@@ -116,9 +131,28 @@
                 </configuration>
             </plugin>
             <plugin>
+                <!-- Resolve Mockito's JAR for explicit Java 21+ test instrumentation. -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.8.1</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>properties</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.5.3</version>
+                <configuration>
+                    <argLine>@{argLine} -javaagent:${org.mockito:mockito-core:jar}</argLine>
+                    <systemPropertyVariables>
+                        <net.bytebuddy.experimental>true</net.bytebuddy.experimental>
+                    </systemPropertyVariables>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -135,7 +169,11 @@
                             <relocations>
                                 <relocation>
                                     <pattern>com.google.gson</pattern>
-                                    <shadedPattern>com.lozaine.resourceworldresetter.discord.libs.gson</shadedPattern>
+                                    <shadedPattern>io.github.tamawish.rwr.discord.libs.gson</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.bstats</pattern>
+                                    <shadedPattern>io.github.tamawish.rwr.discord.libs.bstats</shadedPattern>
                                 </relocation>
                             </relocations>
                             <filters>
@@ -159,7 +197,7 @@
                 <configuration>
                     <archive>
                         <manifestEntries>
-                            <Automatic-Module-Name>com.lozaine.resourceworldresetter.discord</Automatic-Module-Name>
+                            <Automatic-Module-Name>io.github.tamawish.rwr.discord</Automatic-Module-Name>
                         </manifestEntries>
                     </archive>
                 </configuration>

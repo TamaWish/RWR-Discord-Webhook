@@ -7,3 +7,9 @@ target/
 .vscode/
 *.log
 .DS_Store
+
+# Marketplace paste files (consumer description + changelog per channel)
+/docs/marketplace/
+
+# Internal development notes
+/docs/dev/

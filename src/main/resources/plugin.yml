@@ -1,22 +1,37 @@
-name: RWR-Discord
+# =============================================================================
+# Bukkit Plugin Descriptor - RWR-Discord Webhook
+# Generated Maven values use ${...} syntax and should remain unchanged.
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Plugin Metadata
+# -----------------------------------------------------------------------------
+name: RWR-Discord-Webhook
 version: '${project.version}'
-main: com.lozaine.resourceworldresetter.discord.RwrDiscordPlugin
+main: io.github.tamawish.rwr.discord.RwrDiscordPlugin
 api-version: '1.21'
+folia-supported: true
 load: POSTWORLD
 authors: [TamaWish, Lozaine]
-description: Discord webhook add-on for ResourceWorldResetter
-website: https://github.com/TamaWish/RWR-Discord
+description: Discord webhook add-on for ResourceWorldResetter on Spigot, CraftBukkit, Paper, Purpur, and Folia
+website: https://github.com/TamaWish/RWR-Discord-Webhook
 softdepend:
   - ResourceWorldResetter
   - ResourceWorldResetter-Paper-Folia
 
+# -----------------------------------------------------------------------------
+# Commands
+# -----------------------------------------------------------------------------
 commands:
   rwrdiscord:
-    description: RWR-Discord administration commands
-    usage: /rwrdiscord <reload|status>
-    aliases: [rwr-discord, rwrwh]
+    description: Legacy alias for /rwr discord
+    usage: /rwr discord <reload|status>
+    aliases: [rwr-discord, rwr-discord-webhook, rwrwh]
 
+# -----------------------------------------------------------------------------
+# Permissions
+# -----------------------------------------------------------------------------
 permissions:
   rwrdiscord.admin:
-    description: Allows /rwrdiscord reload and status
+    description: Allows /rwr discord reload and status
     default: op

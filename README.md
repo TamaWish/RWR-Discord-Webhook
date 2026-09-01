@@ -1,21 +1,22 @@
-# RWR-Discord
+# RWR-Discord Webhook
 
-Discord webhook add-on for [ResourceWorldResetter](https://github.com/TamaWish/ResourceWorldResetter).
+Discord webhook add-on for [ResourceWorldResetter](https://github.com/TamaWish/ResourceWorldResetter). A separate Discord bot add-on may ship later; this plugin is webhook-only.
 
-**Artifact:** `io.github.tamawish:rwr-discord`  
-**Package:** `com.lozaine.resourceworldresetter.discord`  
-**Repository:** [TamaWish/RWR-Discord](https://github.com/TamaWish/RWR-Discord)
+**Artifact:** `io.github.tamawish:rwr-discord-webhook`  
+**Package:** `io.github.tamawish.rwr.discord`  
+**Repository:** [TamaWish/RWR-Discord-Webhook](https://github.com/TamaWish/RWR-Discord-Webhook)
 
 ## Features (v1.0)
 
 - Soft-depends on both RWR runtimes (`ResourceWorldResetter` and `ResourceWorldResetter-Paper-Folia`)
-- Uses only the public [RWR-API](https://github.com/TamaWish/RWR-API) (`RwrApi`, pre/post reset events)
+- Uses only the public [RWR-API](https://github.com/TamaWish/RWR-API) service and reset events
 - Disables delivery cleanly when `RwrApi` is unavailable
 - Webhook URL and all Discord settings live exclusively in this plugin’s data folder
 - Webhook secrets are redacted from logs
+- Posts a configuration confirmation with RWR API, add-on, and server status after startup or reload
 - Own locale system (`locale: en_US`, `locales/<code>.yml`, English fallback)
 - Sends Discord embeds for:
-  - configured reset **warnings** (`ResourceWorldPreResetEvent`)
+  - every configured reset **warning** (`ResourceWorldResetWarningEvent`)
   - **successful** resets
   - **failures**
   - **cancellations** (`EVENT_CANCELLED`)
@@ -27,14 +28,14 @@ Discord webhook add-on for [ResourceWorldResetter](https://github.com/TamaWish/R
 ## Requirements
 
 - Java 21+
-- Spigot / Paper / Folia 1.21+
-- ResourceWorldResetter 5.1+ (Spigot or Paper-Folia build) providing `rwr-api` 5.1.0
+- **Spigot**, **CraftBukkit**, **Paper**, **Purpur**, or **Folia** (Minecraft 1.21.4+)
+- ResourceWorldResetter 5.1+ (the Spigot jar or the Paper/Folia jar that matches the server)
 
 ## Installation
 
-1. Install RWR (Spigot or Paper-Folia) on the server.
-2. Drop `RWR-Discord-1.0.0.jar` into `plugins/`.
-3. Start the server once to generate `plugins/RWR-Discord/config.yml`.
+1. Install ResourceWorldResetter for your server (**Spigot / CraftBukkit** → Spigot jar, **Paper / Purpur / Folia** → Paper-Folia jar).
+2. Drop `RWR-Discord-Webhook-1.0.0.jar` into `plugins/`.
+3. Start the server once to generate `plugins/RWR-Discord-Webhook/config.yml`.
 4. Set `webhook.url` to your Discord incoming webhook URL.
 5. `/rwrdiscord reload`
 
@@ -57,10 +58,11 @@ locale: en_US
 webhook:
   url: "https://discord.com/api/webhooks/..."
   username: "RWR"
-  avatar-url: ""
+  avatar_url: "https://files.catbox.moe/6pm9fu.png"
   timeout-ms: 8000
   queue-capacity: 64
-  max-retries: 3
+  queue-ttl-hours: 24
+  max-attempts: 8
   min-interval-seconds: 1
 
 events:
@@ -71,7 +73,7 @@ events:
   interrupted: true
 ```
 
-Locale files: `plugins/RWR-Discord/locales/en_US.yml` (bundled default). Missing keys fall back to the bundled English strings.
+Locale files: `plugins/RWR-Discord-Webhook/locales/en_US.yml` (bundled default). Missing keys fall back to the bundled English strings.
 
 ## Commands
 
@@ -82,12 +84,12 @@ Locale files: `plugins/RWR-Discord/locales/en_US.yml` (bundled default). Missing
 
 ## Embed fields
 
-Each embed includes world ID, world name, operation ID, phase (when terminal), failure type, safety classification, localized explanation, and an ISO-8601 timestamp.
+Warning embeds include world ID, world name, remaining time, and the scheduled reset timestamp, with no operation ID. Terminal embeds retain the operation ID, phase, failure type, safety classification, message detail, and an ISO-8601 event timestamp.
 
 ## Build
 
 ```shell
-# Requires rwr-api 5.1.0 available to Maven (Central or local install)
+# Requires rwr-api 5.1.2 available to Maven (Central or local install)
 mvn -f RWR-Discord/pom.xml verify
 ```
 
@@ -96,3 +98,5 @@ Compile-time dependencies are `rwr-api` (provided) and `spigot-api` (provided). 
 ## License
 
 BSD 3-Clause. See [LICENSE](LICENSE).
+
+Public documentation: [Changelog](CHANGELOG.md). Marketplace paste files and development notes live in `docs/marketplace/` and `docs/dev/` and are excluded by `.gitignore`.

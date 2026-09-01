@@ -3,7 +3,7 @@
 **Product:** RWR-Discord Webhook  
 **Plugin id:** `RWR-Discord-Webhook`  
 **Effective date:** 29 August 2026  
-**Last updated:** 1 September 2026
+**Last updated:** 2 September 2026
 
 This Privacy Policy describes how **RWR-Discord Webhook** (“**Plugin**”, “**we**”, “**us**”) handles information when a server operator installs and runs it.
 
@@ -54,7 +54,9 @@ Log lines may include world identifiers, operation IDs, HTTP status classes, and
 
 Outbound HTTPS requests are made only to the Discord webhook URL you configure (or related Discord API hosts implied by that URL). Because the Plugin is webhook-only, it does not open persistent connections to Discord or call Discord bot APIs.
 
-The Plugin does not phone home to the Plugin authors for analytics or licensing unless a future optional feature is documented and enabled by you.
+The Plugin also sends anonymous usage statistics to [bStats](https://bstats.org) (plugin id **33788**), such as server software version, online player count, and plugin version. bStats does not receive webhook URLs, Discord message content, world or operation identifiers, or player identities. You can opt out globally at [bstats.org/optout](https://bstats.org/optout).
+
+The Plugin does not otherwise phone home to the Plugin authors for analytics or licensing unless a future optional feature is documented and enabled by you.
 
 ## 7. Data retention
 
@@ -80,6 +82,7 @@ You are the controller of data on your server. You should:
 | Party | Role |
 |-------|------|
 | **Discord** | Receives webhook HTTP requests you authorize |
+| **bStats** | Receives anonymous plugin usage statistics (see [bStats privacy](https://bstats.org/privacy)) |
 | **Hosting provider** | Stores server disk and logs under your hosting arrangement |
 | **ResourceWorldResetter** | Supplies reset events via its public API on the same server; not a network recipient of Discord deliveries |
 

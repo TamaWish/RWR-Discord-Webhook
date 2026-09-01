@@ -13,3 +13,6 @@ target/
 
 # Internal development notes
 /docs/dev/
+
+# Local dev scripts (smoke tests, etc.)
+/scripts/

@@ -15,4 +15,7 @@ Public **v1** history for RWR-Discord Webhook. All 1.x.x versions stay in this f
 - Published as **RWR-Discord Webhook** (`RWR-Discord-Webhook` plugin id) so a future Discord bot add-on can use a distinct identity.
 - Declared native Folia support; delivery remains off-thread without Bukkit scheduler calls.
 
-Release remains pending final smoke testing with ResourceWorldResetter 5.1.0.
+Release smoke testing completed September 1, 2026 on Spigot 26.2 with ResourceWorldResetter
+5.1.0. Live 10-, 5-, and 1-minute warnings and a successful reset passed. The configured webhook
+also accepted labelled synthetic 30-, 10-, 5-, and 1-minute warnings plus success, failure,
+cancellation, and interruption embeds (HTTP 204 for all eight deliveries).

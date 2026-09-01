@@ -23,7 +23,7 @@ Discord webhook add-on for [ResourceWorldResetter](https://github.com/TamaWish/R
   - **interrupted** operations
 - Does **not** send intermediate reset phases
 - Mentions disabled (`allowed_mentions.parse = []`); mention syntax stripped from localized text
-- Commands: `/rwrdiscord reload` and `/rwrdiscord status` (`rwrdiscord.admin`, default op)
+- Commands: `/rwr discord reload` and `/rwr discord status` (`rwrdiscord.admin`, default op)
 
 ## Requirements
 
@@ -37,7 +37,7 @@ Discord webhook add-on for [ResourceWorldResetter](https://github.com/TamaWish/R
 2. Drop `RWR-Discord-Webhook-1.0.0.jar` into `plugins/`.
 3. Start the server once to generate `plugins/RWR-Discord-Webhook/config.yml`.
 4. Set `webhook.url` to your Discord incoming webhook URL.
-5. `/rwrdiscord reload`
+5. `/rwr discord reload`
 
 
 ## Reliable delivery
@@ -79,8 +79,12 @@ Locale files: `plugins/RWR-Discord-Webhook/locales/en_US.yml` (bundled default).
 
 | Command | Permission | Description |
 |---------|------------|-------------|
-| `/rwrdiscord reload` | `rwrdiscord.admin` | Reload config, locale, and webhook client |
-| `/rwrdiscord status` | `rwrdiscord.admin` | Report API availability, queue size, last success/failure, retry count |
+| `/rwr discord reload` | `rwrdiscord.admin` | Reload config, locale, and webhook client |
+| `/rwr discord status` | `rwrdiscord.admin` | Report API availability, queue size, last success/failure, retry count |
+
+The direct `/rwrdiscord reload|status` command remains available as a legacy alias. It is also
+the fallback for checking add-on status if ResourceWorldResetter itself is unavailable and cannot
+provide the `/rwr discord ...` namespace.
 
 ## Embed fields
 
@@ -94,6 +98,10 @@ mvn -f RWR-Discord/pom.xml verify
 ```
 
 Compile-time dependencies are `rwr-api` (provided) and `spigot-api` (provided). Gson is shaded into the jar.
+
+## Metrics (bStats)
+
+This plugin uses [bStats](https://bstats.org/plugin/bukkit/RWR-Discord-Webhook/33788) to collect anonymous server statistics (such as Minecraft version, online player count, and plugin version). No webhook URLs, Discord content, or player identities are sent. You can opt out globally at [bstats.org/optout](https://bstats.org/optout).
 
 ## License
 

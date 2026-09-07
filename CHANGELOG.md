@@ -1,21 +1,29 @@
 # Changelog
 
-Public **v1** history for RWR-Discord Webhook. All 1.x.x versions stay in this file. When v2 begins, start `CHANGELOG_v2.md`.
+All notable changes to this project are documented in this file.
 
-## 1.0.0 - 2026-09-03
+The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-- Added Discord webhook embeds for every configured RWR reset warning and for successful, failed, cancelled, and interrupted resets.
-- Added a webhook configuration confirmation reporting RWR API availability, add-on version, and server software.
-- Added warning details for world identity, remaining time, and scheduled reset time without an operation ID.
-- Added terminal details for operation ID, phase, safety classification, failure type, and message.
-- Added asynchronous delivery with a bounded, expiring, persistent queue that resumes after restart.
-- Added exact Discord rate-limit handling, bounded ordinary retries, secret redaction, and disabled webhook mentions.
-- Added transactional reload, bounded shutdown, degraded operation when RWR is unavailable, and `/rwrdiscord status` delivery diagnostics.
-- Added Privacy Policy and Terms of Service links to every webhook embed description (hard-coded; not configurable in `config.yml`).
-- Published as **RWR-Discord Webhook** (`RWR-Discord-Webhook` plugin id) so a future Discord bot add-on can use a distinct identity.
-- Declared native Folia support; delivery remains off-thread without Bukkit scheduler calls.
+## [Unreleased]
 
-Release smoke testing completed September 1, 2026 on Spigot 26.2 with ResourceWorldResetter
-5.1.0. Live 10-, 5-, and 1-minute warnings and a successful reset passed. The configured webhook
-also accepted labelled synthetic 30-, 10-, 5-, and 1-minute warnings plus success, failure,
-cancellation, and interruption embeds (HTTP 204 for all eight deliveries).
+## [1.0.0] - 2026-09-01
+
+### Added
+- Discord webhook embeds for configured RWR reset warnings and for successful, failed, cancelled, and interrupted resets
+- Startup and reload configuration confirmation reporting RWR API availability, add-on version, and server software
+- Warning embeds with world identity, remaining time, and scheduled reset time (no operation ID)
+- Terminal embeds with operation ID, phase, safety classification, failure type, and message detail
+- Asynchronous delivery with a bounded, expiring, persistent queue that resumes after restart
+- Exact Discord rate-limit (`Retry-After`) handling, bounded ordinary retries, and webhook secret redaction from logs and the durable queue
+- Optional allow-listed Discord role and user mentions (`mentions.*`); locale and event text cannot ping when mentions are disabled
+- Per-category event toggles and embed colors in `config.yml`
+- Locale system (`locale`, `locales/<code>.yml`) with English fallback
+- `/rwrdiscord reload` and `/rwrdiscord status` (permission `rwrdiscord.admin`, default op), with aliases `rwr-discord`, `rwr-discord-webhook`, and `rwrwh`
+- Hard-coded Privacy Policy and Terms of Service links on every webhook embed description
+- Native Folia support alongside Spigot, CraftBukkit, Paper, and Purpur; HTTP delivery stays off the server thread
+- Degraded operation when ResourceWorldResetter / `RwrApi` is unavailable (plugin loads without forwarding reset events)
+- Anonymous bStats metrics for RWR-Discord-Webhook ([plugin ID 33788](https://bstats.org/plugin/bukkit/RWR-Discord-Webhook/33788); opt out via `plugins/bStats/config.yml`)
+
+[Unreleased]: https://github.com/TamaWish/RWR-Discord-Webhook/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/TamaWish/RWR-Discord-Webhook/releases/tag/v1.0.0

@@ -8,36 +8,36 @@ import java.util.Objects;
 
 /** Assembles the Discord webhook JSON payload shared by webhook and future bot delivery. */
 public final class PayloadBuilder {
-    private final DiscordConfig config;
-    private final MentionResolver mentions;
-    private final Gson gson = new Gson();
+  private final DiscordConfig config;
+  private final MentionResolver mentions;
+  private final Gson gson = new Gson();
 
-    public PayloadBuilder(DiscordConfig config) {
-        this.config = Objects.requireNonNull(config, "config");
-        this.mentions = new MentionResolver(config.mentions());
+  public PayloadBuilder(DiscordConfig config) {
+    this.config = Objects.requireNonNull(config, "config");
+    this.mentions = new MentionResolver(config.mentions());
+  }
+
+  public String build(NotificationCategory category, JsonObject embed) {
+    Objects.requireNonNull(category, "category");
+    Objects.requireNonNull(embed, "embed");
+
+    JsonObject root = new JsonObject();
+    if (!config.username().isEmpty()) {
+      root.addProperty("username", config.username());
+    }
+    if (!config.avatarUrl().isEmpty()) {
+      root.addProperty("avatar_url", config.avatarUrl());
     }
 
-    public String build(NotificationCategory category, JsonObject embed) {
-        Objects.requireNonNull(category, "category");
-        Objects.requireNonNull(embed, "embed");
-
-        JsonObject root = new JsonObject();
-        if (!config.username().isEmpty()) {
-            root.addProperty("username", config.username());
-        }
-        if (!config.avatarUrl().isEmpty()) {
-            root.addProperty("avatar_url", config.avatarUrl());
-        }
-
-        MentionResolver.ResolvedMentions resolved = mentions.resolve(category);
-        if (!resolved.content().isEmpty()) {
-            root.addProperty("content", resolved.content());
-        }
-        root.add("allowed_mentions", resolved.allowedMentions());
-
-        JsonArray embeds = new JsonArray();
-        embeds.add(embed);
-        root.add("embeds", embeds);
-        return gson.toJson(root);
+    MentionResolver.ResolvedMentions resolved = mentions.resolve(category);
+    if (!resolved.content().isEmpty()) {
+      root.addProperty("content", resolved.content());
     }
+    root.add("allowed_mentions", resolved.allowedMentions());
+
+    JsonArray embeds = new JsonArray();
+    embeds.add(embed);
+    root.add("embeds", embeds);
+    return gson.toJson(root);
+  }
 }

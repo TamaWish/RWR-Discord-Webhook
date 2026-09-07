@@ -54,7 +54,15 @@ Log lines may include world identifiers, operation IDs, HTTP status classes, and
 
 Outbound HTTPS requests are made only to the Discord webhook URL you configure (or related Discord API hosts implied by that URL). Because the Plugin is webhook-only, it does not open persistent connections to Discord or call Discord bot APIs.
 
-The Plugin also sends anonymous usage statistics to [bStats](https://bstats.org) (plugin id **33788**), such as server software version, online player count, and plugin version. bStats does not receive webhook URLs, Discord message content, world or operation identifiers, or player identities. You can opt out globally at [bstats.org/optout](https://bstats.org/optout).
+The Plugin also sends anonymous usage statistics to **bStats** under [plugin ID 33788](https://bstats.org/plugin/bukkit/RWR-Discord-Webhook/33788), such as server software version, online player count, and plugin version. bStats does not receive webhook URLs, Discord message content, world or operation identifiers, or player identities.
+
+To opt out, open `plugins/bStats/config.yml` and set:
+
+```yaml
+enabled: false
+```
+
+This is controlled by bStats, not the Plugin's own `config.yml`.
 
 The Plugin does not otherwise phone home to the Plugin authors for analytics or licensing unless a future optional feature is documented and enabled by you.
 

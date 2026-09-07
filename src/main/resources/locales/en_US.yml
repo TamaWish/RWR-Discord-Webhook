@@ -5,9 +5,10 @@
 # Mentions are stripped from outbound webhook text for safety.
 # =============================================================================
 
-# -----------------------------------------------------------------------------
+# =============================================================================
 # Commands and Status
-# -----------------------------------------------------------------------------
+# =============================================================================
+
 command:
   no-permission: "You do not have permission: {permission}"
   unknown: "Unknown subcommand. Use /rwr discord reload|status."
@@ -22,11 +23,15 @@ command:
   status-retries: "Retry count (session): {count}"
   status-never: "never"
 
-# -----------------------------------------------------------------------------
+# =============================================================================
 # Discord Embeds
-# -----------------------------------------------------------------------------
+# =============================================================================
+
 embed:
-  # Titles and descriptions.
+  # -----------------------------------------------------------------------------
+  # Titles and Descriptions
+  # -----------------------------------------------------------------------------
+
   configuration-title: "RWR-Discord Webhook configured"
   configuration-description: "Discord webhook delivery is configured and ready for ResourceWorldResetter reset notifications."
   legal-links: "[Privacy Policy]({privacy_url}) · [Terms of Service]({terms_url})"
@@ -41,7 +46,10 @@ embed:
   interrupted-title: "Reset interrupted"
   interrupted-description: "A previous reset of {world_name} was recovered as interrupted."
 
-  # Field labels shown inside embeds.
+  # -----------------------------------------------------------------------------
+  # Field Labels
+  # -----------------------------------------------------------------------------
+
   field-world-id: "World ID"
   field-world-name: "World name"
   field-operation: "Operation ID"
@@ -55,12 +63,20 @@ embed:
   field-api-status: "RWR API"
   field-addon-version: "Add-on version"
   field-server: "Server"
-  # General field values.
+
+  # -----------------------------------------------------------------------------
+  # Field Values
+  # -----------------------------------------------------------------------------
+
   api-available: "Available - reset notifications are active"
   api-unavailable: "Unavailable - waiting for the RWR runtime"
   remaining-minutes: "{minutes} minute(s)"
 
-  # Failure labels. The key suffix matches ResetFailureType and must not change.
+  # -----------------------------------------------------------------------------
+  # Failure Labels
+  # -----------------------------------------------------------------------------
+  # The key suffix matches ResetFailureType and must not change.
+
   failure-UNKNOWN_WORLD_ID: "Unknown world ID"
   failure-WORLD_NOT_MANAGED: "World not managed"
   failure-WORLD_BUSY: "World busy"
@@ -81,12 +97,20 @@ embed:
   failure-JOURNAL_UNAVAILABLE: "Journal unavailable"
   failure-INTERRUPTED_OPERATION: "Interrupted operation"
 
-  # Retry-safety labels. Key suffixes are internal API values.
+  # -----------------------------------------------------------------------------
+  # Retry-Safety Labels
+  # -----------------------------------------------------------------------------
+  # Key suffixes are internal API values.
+
   safety-SAFE_TO_RETRY: "Safe to retry"
   safety-AMBIGUOUS_REVIEW_REQUIRED: "Review required"
   safety-NOT_RETRYABLE: "Not retryable"
 
-  # Reset phase labels. Key suffixes are internal API values.
+  # -----------------------------------------------------------------------------
+  # Reset Phase Labels
+  # -----------------------------------------------------------------------------
+  # Key suffixes are internal API values.
+
   phase-PRECHECK: "Precheck"
   phase-EVACUATE: "Evacuate"
   phase-REGENERATE: "Regenerate"
@@ -96,9 +120,10 @@ embed:
   phase-INTERRUPTED: "Interrupted"
   phase-IDLE: "Idle"
 
-# -----------------------------------------------------------------------------
+# =============================================================================
 # Console Log Messages
-# -----------------------------------------------------------------------------
+# =============================================================================
+
 log:
   enabled: "RWR-Discord Webhook enabled. RWR API available; webhook {webhook_state}."
   enabled-degraded: "RWR-Discord Webhook enabled in degraded mode; RWR API unavailable and event delivery disabled. Webhook {webhook_state}."

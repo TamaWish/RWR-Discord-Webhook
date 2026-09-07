@@ -1,0 +1,135 @@
+# =============================================================================
+# RWR-Discord Webhook 日本語
+# =============================================================================
+# 実行時プレースホルダーは {name} 形式です。波括弧内の名前は変更しないでください。
+# 安全のため、送信 webhook テキストからメンションは除去されます。
+# =============================================================================
+
+# =============================================================================
+# コマンドとステータス
+# =============================================================================
+
+command:
+  no-permission: "権限がありません: {permission}"
+  unknown: "不明なサブコマンドです。/rwr discord reload|status を使用してください。"
+  reload-success: "RWR-Discord Webhook の設定を再読み込みしました。"
+  reload-failed: "再読み込みに失敗しました: {reason}"
+  status-header: "RWR-Discord Webhook ステータス"
+  status-service: "RWR API: {state}"
+  status-webhook: "Webhook: {state}"
+  status-queue: "永続キューサイズ: {size}"
+  status-last-success: "前回の成功配信: {time}"
+  status-last-failure: "前回の失敗: {time}（{detail}）"
+  status-retries: "再試行回数（セッション）: {count}"
+  status-never: "なし"
+
+# =============================================================================
+# Discord Embeds
+# =============================================================================
+
+embed:
+  # -----------------------------------------------------------------------------
+  # タイトルと説明
+  # -----------------------------------------------------------------------------
+
+  configuration-title: "RWR-Discord Webhook が設定されました"
+  configuration-description: "Discord webhook 配信が設定され、ResourceWorldResetter のリセット通知を受信できます。"
+  legal-links: "[プライバシーポリシー]({privacy_url}) · [利用規約]({terms_url})"
+  warning-title: "リセット警告"
+  warning-description: "{world_name} のリセットが {remaining} 後に予定されています。"
+  success-title: "リセット完了"
+  success-description: "ワールド {world_name} のリセットに成功しました。"
+  failure-title: "リセット失敗"
+  failure-description: "ワールド {world_name} のリセットに失敗しました。"
+  cancellation-title: "リセットキャンセル"
+  cancellation-description: "ワールド {world_name} のリセットがキャンセルされました。"
+  interrupted-title: "リセット中断"
+  interrupted-description: "ワールド {world_name} の前回のリセットが中断として復旧されました。"
+
+  # -----------------------------------------------------------------------------
+  # フィールドラベル
+  # -----------------------------------------------------------------------------
+
+  field-world-id: "ワールド ID"
+  field-world-name: "ワールド名"
+  field-operation: "操作 ID"
+  field-remaining: "残り時間"
+  field-scheduled-at: "予定リセット時刻"
+  field-phase: "フェーズ"
+  field-failure: "失敗理由"
+  field-safety: "安全性"
+  field-message: "詳細"
+  field-timestamp: "タイムスタンプ"
+  field-api-status: "RWR API"
+  field-addon-version: "アドオンバージョン"
+  field-server: "サーバー"
+
+  # -----------------------------------------------------------------------------
+  # フィールド値
+  # -----------------------------------------------------------------------------
+
+  api-available: "利用可能 - リセット通知は有効です"
+  api-unavailable: "利用不可 - RWR ランタイムを待機中"
+  remaining-minutes: "{minutes} 分"
+
+  # -----------------------------------------------------------------------------
+  # 失敗ラベル
+  # -----------------------------------------------------------------------------
+  # キー接尾辞は ResetFailureType に対応しており、変更しないでください。
+
+  failure-UNKNOWN_WORLD_ID: "不明なワールド ID"
+  failure-WORLD_NOT_MANAGED: "管理対象外のワールド"
+  failure-WORLD_BUSY: "ワールド使用中"
+  failure-GLOBAL_RESET_BUSY: "グローバルリセットロック中"
+  failure-EVENT_CANCELLED: "イベントリスナーによりキャンセル"
+  failure-WORLD_NOT_REGISTERED: "ワールド未登録"
+  failure-WORLD_NOT_LOADED: "ワールド未読み込み"
+  failure-WORLD_IDENTITY_CHANGED: "ワールド識別子が変更されました"
+  failure-EVACUATION_DISABLED: "避難が無効"
+  failure-EVACUATION_DESTINATION_UNAVAILABLE: "避難先が利用不可"
+  failure-EVACUATION_FAILED: "避難に失敗"
+  failure-PLAYERS_REMAINING: "プレイヤーが残存"
+  failure-PROVIDER_REJECTED: "プロバイダーが拒否"
+  failure-WORLD_DELETE_FAILED: "ワールド削除に失敗"
+  failure-WORLD_CREATE_FAILED: "ワールド作成に失敗"
+  failure-PROVIDER_API_EXCEPTION: "プロバイダー API 例外"
+  failure-VERIFICATION_FAILED: "検証に失敗"
+  failure-JOURNAL_UNAVAILABLE: "ジャーナル利用不可"
+  failure-INTERRUPTED_OPERATION: "操作が中断されました"
+
+  # -----------------------------------------------------------------------------
+  # 再試行安全性ラベル
+  # -----------------------------------------------------------------------------
+  # キー接尾辞は内部 API 値です。
+
+  safety-SAFE_TO_RETRY: "再試行可能"
+  safety-AMBIGUOUS_REVIEW_REQUIRED: "確認が必要"
+  safety-NOT_RETRYABLE: "再試行不可"
+
+  # -----------------------------------------------------------------------------
+  # リセットフェーズラベル
+  # -----------------------------------------------------------------------------
+  # キー接尾辞は内部 API 値です。
+
+  phase-PRECHECK: "事前チェック"
+  phase-EVACUATE: "避難"
+  phase-REGENERATE: "再生成"
+  phase-VERIFY: "検証"
+  phase-COMPLETE: "完了"
+  phase-FAILED: "失敗"
+  phase-INTERRUPTED: "中断"
+  phase-IDLE: "待機"
+
+# =============================================================================
+# コンソールログメッセージ
+# =============================================================================
+
+log:
+  enabled: "RWR-Discord Webhook が有効になりました。RWR API は利用可能です。webhook {webhook_state}。"
+  enabled-degraded: "RWR-Discord Webhook は縮退モードで有効です。RWR API が利用できず、イベント配信は無効です。Webhook {webhook_state}。"
+  disabled-no-api: "RWR API が利用できません。RWR が有効になるまで、RWR-Discord Webhook は読み込まれたまま非アクティブです。"
+  webhook-missing: "Webhook URL が空です。配信は無効です。"
+  delivery-success: "{category} の webhook を配信しました（operation={operation}）。"
+  delivery-failed: "{category} の webhook 配信が再試行後も失敗しました: {detail}"
+  queue-full: "Webhook キューがいっぱいです。operation={operation} の {category} イベントを破棄します。"
+  secret-redacted: "[非表示]"

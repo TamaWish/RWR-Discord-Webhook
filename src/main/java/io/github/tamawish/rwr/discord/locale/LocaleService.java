@@ -19,7 +19,9 @@ import org.bukkit.plugin.java.JavaPlugin;
  * Locale loader with English fallback.
  *
  * <p>Resolves keys from {@code locales/<code>.yml} in the data folder, then from the bundled {@code
- * locales/en_US.yml}, then from an empty string. Placeholders use {@code {name}} form.
+ * locales/en_US.yml}, then from an empty string. Bundled locales ({@code en_US}, {@code zh_CN},
+ * {@code ja_JP}, {@code ko_KR}) are extracted to the data folder on first use. Placeholders use
+ * {@code {name}} form.
  */
 public final class LocaleService {
   private static final Pattern PLACEHOLDER = Pattern.compile("\\{([a-zA-Z0-9_]+)}");
@@ -42,8 +44,8 @@ public final class LocaleService {
     strings.putAll(englishFallback);
 
     File dataFile = new File(plugin.getDataFolder(), "locales/" + activeLocale + ".yml");
-    if (!dataFile.exists() && DEFAULT_LOCALE.equals(activeLocale)) {
-      plugin.saveResource("locales/en_US.yml", false);
+    if (!dataFile.exists()) {
+      tryExtractBundledLocale(activeLocale);
     }
     if (dataFile.isFile()) {
       YamlConfiguration yaml = YamlConfiguration.loadConfiguration(dataFile);
@@ -53,6 +55,20 @@ public final class LocaleService {
           .getLogger()
           .warning(
               "Locale file locales/" + activeLocale + ".yml not found; using English fallback.");
+    }
+  }
+
+  private void tryExtractBundledLocale(String localeCode) {
+    String resourcePath = "locales/" + localeCode + ".yml";
+    if (plugin.getResource(resourcePath) == null) {
+      return;
+    }
+    try {
+      plugin.saveResource(resourcePath, false);
+    } catch (IllegalArgumentException ex) {
+      plugin
+          .getLogger()
+          .log(Level.FINE, "Bundled locale resource unavailable: " + resourcePath, ex);
     }
   }
 

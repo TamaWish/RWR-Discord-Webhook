@@ -1,0 +1,135 @@
+# =============================================================================
+# RWR-Discord Webhook 简体中文
+# =============================================================================
+# 运行时占位符使用 {name} 形式。花括号内的名称请保持不变。
+# 出于安全考虑，出站 webhook 文本中的提及会被剥离。
+# =============================================================================
+
+# =============================================================================
+# 命令与状态
+# =============================================================================
+
+command:
+  no-permission: "你没有权限：{permission}"
+  unknown: "未知子命令。请使用 /rwr discord reload|status。"
+  reload-success: "RWR-Discord Webhook 配置已重新加载。"
+  reload-failed: "重新加载失败：{reason}"
+  status-header: "RWR-Discord Webhook 状态"
+  status-service: "RWR API：{state}"
+  status-webhook: "Webhook：{state}"
+  status-queue: "持久队列大小：{size}"
+  status-last-success: "上次成功投递：{time}"
+  status-last-failure: "上次失败：{time}（{detail}）"
+  status-retries: "重试次数（本次会话）：{count}"
+  status-never: "从未"
+
+# =============================================================================
+# Discord Embeds
+# =============================================================================
+
+embed:
+  # -----------------------------------------------------------------------------
+  # 标题与描述
+  # -----------------------------------------------------------------------------
+
+  configuration-title: "RWR-Discord Webhook 已配置"
+  configuration-description: "Discord webhook 投递已配置完成，可接收 ResourceWorldResetter 重置通知。"
+  legal-links: "[隐私政策]({privacy_url}) · [服务条款]({terms_url})"
+  warning-title: "重置警告"
+  warning-description: "世界 {world_name} 将在 {remaining} 后重置。"
+  success-title: "重置完成"
+  success-description: "世界 {world_name} 已成功重置。"
+  failure-title: "重置失败"
+  failure-description: "世界 {world_name} 重置失败。"
+  cancellation-title: "重置已取消"
+  cancellation-description: "世界 {world_name} 的重置已取消。"
+  interrupted-title: "重置中断"
+  interrupted-description: "世界 {world_name} 的先前重置已恢复为中断状态。"
+
+  # -----------------------------------------------------------------------------
+  # 字段标签
+  # -----------------------------------------------------------------------------
+
+  field-world-id: "世界 ID"
+  field-world-name: "世界名称"
+  field-operation: "操作 ID"
+  field-remaining: "剩余时间"
+  field-scheduled-at: "计划重置时间"
+  field-phase: "阶段"
+  field-failure: "失败原因"
+  field-safety: "安全性"
+  field-message: "详情"
+  field-timestamp: "时间戳"
+  field-api-status: "RWR API"
+  field-addon-version: "插件版本"
+  field-server: "服务器"
+
+  # -----------------------------------------------------------------------------
+  # 字段值
+  # -----------------------------------------------------------------------------
+
+  api-available: "可用 - 重置通知已启用"
+  api-unavailable: "不可用 - 正在等待 RWR 运行时"
+  remaining-minutes: "{minutes} 分钟"
+
+  # -----------------------------------------------------------------------------
+  # 失败标签
+  # -----------------------------------------------------------------------------
+  # 键后缀对应 ResetFailureType，请勿更改。
+
+  failure-UNKNOWN_WORLD_ID: "未知世界 ID"
+  failure-WORLD_NOT_MANAGED: "世界未受管理"
+  failure-WORLD_BUSY: "世界繁忙"
+  failure-GLOBAL_RESET_BUSY: "全局重置锁定中"
+  failure-EVENT_CANCELLED: "已被事件监听器取消"
+  failure-WORLD_NOT_REGISTERED: "世界未注册"
+  failure-WORLD_NOT_LOADED: "世界未加载"
+  failure-WORLD_IDENTITY_CHANGED: "世界标识已变更"
+  failure-EVACUATION_DISABLED: "撤离已禁用"
+  failure-EVACUATION_DESTINATION_UNAVAILABLE: "撤离目的地不可用"
+  failure-EVACUATION_FAILED: "撤离失败"
+  failure-PLAYERS_REMAINING: "仍有玩家残留"
+  failure-PROVIDER_REJECTED: "提供方拒绝"
+  failure-WORLD_DELETE_FAILED: "世界删除失败"
+  failure-WORLD_CREATE_FAILED: "世界创建失败"
+  failure-PROVIDER_API_EXCEPTION: "提供方 API 异常"
+  failure-VERIFICATION_FAILED: "验证失败"
+  failure-JOURNAL_UNAVAILABLE: "日志不可用"
+  failure-INTERRUPTED_OPERATION: "操作已中断"
+
+  # -----------------------------------------------------------------------------
+  # 重试安全性标签
+  # -----------------------------------------------------------------------------
+  # 键后缀为内部 API 值。
+
+  safety-SAFE_TO_RETRY: "可安全重试"
+  safety-AMBIGUOUS_REVIEW_REQUIRED: "需要人工复核"
+  safety-NOT_RETRYABLE: "不可重试"
+
+  # -----------------------------------------------------------------------------
+  # 重置阶段标签
+  # -----------------------------------------------------------------------------
+  # 键后缀为内部 API 值。
+
+  phase-PRECHECK: "预检查"
+  phase-EVACUATE: "撤离"
+  phase-REGENERATE: "重新生成"
+  phase-VERIFY: "验证"
+  phase-COMPLETE: "完成"
+  phase-FAILED: "失败"
+  phase-INTERRUPTED: "中断"
+  phase-IDLE: "空闲"
+
+# =============================================================================
+# 控制台日志消息
+# =============================================================================
+
+log:
+  enabled: "RWR-Discord Webhook 已启用。RWR API 可用；webhook {webhook_state}。"
+  enabled-degraded: "RWR-Discord Webhook 以降级模式启用；RWR API 不可用，事件投递已禁用。Webhook {webhook_state}。"
+  disabled-no-api: "RWR API 不可用。RWR-Discord Webhook 将保持加载但处于非活动状态，直到 RWR 启用。"
+  webhook-missing: "Webhook URL 为空；投递已禁用。"
+  delivery-success: "已投递 {category} 的 webhook（operation={operation}）。"
+  delivery-failed: "{category} 的 webhook 在重试后仍投递失败：{detail}"
+  queue-full: "Webhook 队列已满；正在丢弃 operation={operation} 的 {category} 事件。"
+  secret-redacted: "[已隐藏]"

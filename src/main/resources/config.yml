@@ -12,6 +12,7 @@ config-version: 1
 # Locale
 # =============================================================================
 # Loads locales/<code>.yml from the data folder. Missing keys use English.
+# Bundled choices: en_US, zh_CN, ja_JP, ko_KR.
 
 locale: en_US
 

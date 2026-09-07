@@ -72,7 +72,7 @@ All settings are in `plugins/RWR-Discord-Webhook/config.yml`. Leave `webhook.url
 
 | Key | Required | Default | Description |
 |-----|----------|---------|-------------|
-| `locale` | No | `en_US` | Locale code; loads `locales/<code>.yml` from the data folder |
+| `locale` | No | `en_US` | Locale code; loads `locales/<code>.yml` (`en_US`, `zh_CN`, `ja_JP`, `ko_KR`) |
 | `webhook.url` | Yes (for delivery) | `""` | HTTPS Discord incoming webhook URL |
 | `webhook.username` | No | `RWR` | Webhook display name |
 | `webhook.avatar_url` | No | bundled default URL | Webhook avatar |
@@ -126,7 +126,7 @@ mentions:
   users: []
 ```
 
-Locale files: `plugins/RWR-Discord-Webhook/locales/en_US.yml` (bundled default). Missing keys fall back to bundled English strings. Placeholders use `{name}` form — keep the braces and names unchanged.
+Locale files: `plugins/RWR-Discord-Webhook/locales/<code>.yml`. Bundled choices: `en_US` (default), `zh_CN`, `ja_JP`, `ko_KR`. Missing keys fall back to bundled English strings. Placeholders use `{name}` form — keep the braces and names unchanged.
 
 > [!IMPORTANT]
 > `webhook.url` must be an HTTPS Discord incoming webhook (`discord.com` / `discordapp.com`). Invalid URLs fail reload validation.

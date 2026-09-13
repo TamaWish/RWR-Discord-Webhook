@@ -42,7 +42,7 @@ Discord webhook notifications for [ResourceWorldResetter](https://github.com/Tam
 
 - **Java 21+** (bytecode is `--release 21`)
 - **Spigot**, **CraftBukkit**, **Paper**, **Purpur**, or **Folia** (`api-version` `1.21`; compiled against Spigot API `1.21.4`)
-- **ResourceWorldResetter 5.1+** (Spigot jar, or Paper/Folia jar matching the server) for reset notifications
+- **ResourceWorldResetter 5.1+**, verified through 5.2.0 (Spigot jar, or Paper/Folia jar matching the server), for reset notifications
 
 > [!NOTE]
 > Without a running RWR runtime that registers `RwrApi`, the add-on still loads but does not forward reset events.
@@ -50,7 +50,7 @@ Discord webhook notifications for [ResourceWorldResetter](https://github.com/Tam
 ## Installation
 
 1. Install ResourceWorldResetter for your server (**Spigot / CraftBukkit** → Spigot jar, **Paper / Purpur / Folia** → Paper-Folia jar).
-2. Download `RWR-Discord-Webhook-1.0.0.jar` from [Releases](https://github.com/TamaWish/RWR-Discord-Webhook/releases), or build it locally (see [Development](#development)).
+2. Download `RWR-Discord-Webhook-1.1.0.jar` from [Releases](https://github.com/TamaWish/RWR-Discord-Webhook/releases), or build it locally (see [Development](#development)).
 3. Place the jar in `plugins/`.
 4. Start the server once to generate `plugins/RWR-Discord-Webhook/config.yml`.
 5. Set `webhook.url` to your Discord incoming webhook URL.
@@ -64,7 +64,7 @@ cd RWR-Discord-Webhook
 mvn --batch-mode clean verify
 ```
 
-The shaded jar is written to `target/RWR-Discord-Webhook-1.0.0.jar`.
+The shaded jar is written to `target/RWR-Discord-Webhook-1.1.0.jar`.
 
 ## Configuration
 

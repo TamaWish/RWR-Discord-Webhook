@@ -16,7 +16,7 @@ class PluginDescriptorTest {
       assertThat(descriptor).contains("name: RWR-Discord-Webhook");
       assertThat(descriptor).contains("folia-supported: true");
       assertThat(descriptor).contains("Spigot, CraftBukkit, Paper, Purpur, and Folia");
-      assertThat(descriptor).contains("version: '1.0.0'");
+      assertThat(descriptor).contains("version: '1.1.0'");
       assertThat(descriptor).doesNotContain("${project.version}");
       assertThat(descriptor).contains("website: https://github.com/TamaWish/RWR-Discord-Webhook");
     }

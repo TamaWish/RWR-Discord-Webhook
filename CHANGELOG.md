@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-09-13
+
+### Added
+
+- Added bundled `zh_CN`, `ja_JP`, and `ko_KR` locale files with the existing English fallback behavior.
+
+### Changed
+
+- Verified the existing RWR API 5.1.2 event integration against ResourceWorldResetter 5.2.0.
+
 ## [1.0.0] - 2026-09-01
 
 ### Added
@@ -25,5 +35,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Degraded operation when ResourceWorldResetter / `RwrApi` is unavailable (plugin loads without forwarding reset events)
 - Anonymous bStats metrics for RWR-Discord-Webhook ([plugin ID 33788](https://bstats.org/plugin/bukkit/RWR-Discord-Webhook/33788); opt out via `plugins/bStats/config.yml`)
 
-[Unreleased]: https://github.com/TamaWish/RWR-Discord-Webhook/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/TamaWish/RWR-Discord-Webhook/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/TamaWish/RWR-Discord-Webhook/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/TamaWish/RWR-Discord-Webhook/releases/tag/v1.0.0

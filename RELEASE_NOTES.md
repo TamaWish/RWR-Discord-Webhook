@@ -2,6 +2,12 @@
 
 Highlights for people who install or update this plugin. Full technical history is in [CHANGELOG.md](CHANGELOG.md).
 
+## Version 1.1.0 — 2026-09-13
+
+This release adds bundled Simplified Chinese, Japanese, and Korean locale files and verifies the existing event integration with ResourceWorldResetter 5.2.0. The add-on remains compatible with RWR 5.1 and newer.
+
+Replace the existing jar and restart the server. Configuration migration is not required.
+
 ## Version 1.0.0 — 2026-09-01
 
 **Headline:** Resource world reset warnings and outcomes now post to Discord as reliable webhook embeds.
